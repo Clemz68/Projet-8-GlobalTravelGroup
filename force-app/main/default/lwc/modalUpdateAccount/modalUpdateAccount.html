@@ -1,0 +1,16 @@
+<template>
+    <lightning-modal-header label="Update Account"></lightning-modal-header>
+
+    <lightning-modal-body>
+
+         <lightning-input type="text" label="Account Name" name="name" value={nameEdit} onchange={handleChange} required></lightning-input>
+        <lightning-combobox type ="text" label="Currency" name="currencyIsoCode" options={currencyOptions} value={currencyIsoCodeEdit}  onchange={handleChange} required> </lightning-combobox>
+        <lightning-combobox type ="text" label="Industry" name="industry" options={industryOptions} value={industryEdit} onchange={handleChange} required> </lightning-combobox>
+        <lightning-input type="number" label="Phone" name="phone" value={phoneEdit} onchange={handleChange}></lightning-input>
+
+        <div class="slds-m-top_medium">
+            <lightning-button variant="brand" label="Update Account" onclick={handleSaveClick}></lightning-button>
+            <lightning-button variant="neutral" label="Cancel" onclick={handleCloseClick} class="slds-m-left_small"></lightning-button>
+        </div>
+    </lightning-modal-body>
+</template>

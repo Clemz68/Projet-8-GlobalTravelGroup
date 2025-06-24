@@ -1,0 +1,18 @@
+<apex:page standardController="Contract" renderAs="pdf" sidebar="false" showHeader="false">
+    <apex:sectionHeader title="Contrat PDF - {!Contract.ContractNumber}" />
+    
+    <h2>Contrat : {!Contract.ContractNumber}</h2>
+    <p><strong>Client :</strong> {!Contract.Account.Name}</p>
+    <p><strong>Date de début :</strong> {!Contract.StartDate}</p>
+    <p><strong>Date de fin :</strong> {!Contract.EndDate}</p>
+    <p><strong>Statut :</strong> {!Contract.Status}</p>
+    
+    <hr/>
+    
+    <h3>Conditions du contrat :</h3>
+    <p>{!Contract.SpecialTerms}</p>
+    
+    <footer>
+        <p>© 2025 GlobalGroupTravel </p>
+    </footer>
+</apex:page>

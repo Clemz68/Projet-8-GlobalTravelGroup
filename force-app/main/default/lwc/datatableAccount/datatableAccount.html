@@ -1,0 +1,24 @@
+<template>
+    <lightning-card  title="Account Manager" icon-name="standard:account">
+
+        <lightning-button 
+        label="New Account" 
+        slot="actions" 
+        aria-haspopup="dialog"
+        onclick={handleAddApex}>
+        </lightning-button>
+
+    <div>
+    <lightning-datatable
+        data={accItem}
+        columns={columns}
+        key-field="Id"
+        draft-values={draftValues}
+        onsave={handleSave}
+        onrowaction={handleRowAction}
+        hide-checkbox-column= "true">
+
+    </lightning-datatable>
+    </div>
+    </lightning-card>
+</template>
