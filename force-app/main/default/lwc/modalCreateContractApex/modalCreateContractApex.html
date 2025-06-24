@@ -1,0 +1,17 @@
+<template>
+    <lightning-modal-header label="Create New Contract"></lightning-modal-header>
+
+    <lightning-modal-body>
+        
+
+        <lightning-combobox type ="text" label="Currency" name="currencyIsoCode" options={currencyOptions} onchange={handleChange} required> </lightning-combobox>
+        <lightning-combobox type="text" label="Status" name="status" options={statusOptions} onchange={handleChange}></lightning-combobox>
+        <lightning-input type="date" label="Start Date" name="startDate" onchange={handleChange}></lightning-input>
+        <lightning-input type="number" label="Contract Term" name="contractTerm" onchange={handleChange}></lightning-input>
+        
+        <div class="slds-m-top_medium">
+            <lightning-button variant="brand" label="Create Contract" onclick={handleSaveClick}></lightning-button>
+            <lightning-button variant="neutral" label="Cancel" onclick={handleCloseClick} class="slds-m-left_small"></lightning-button>
+        </div>
+    </lightning-modal-body>
+</template>

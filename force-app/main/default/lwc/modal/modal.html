@@ -1,0 +1,182 @@
+<template>
+    
+    <template if:true={modalCreateTrip}>
+        <lightning-modal-header label="Create New Trip"></lightning-modal-header>
+        <lightning-modal-body>
+
+            <lightning-record-edit-form object-api-name="Trip__c"  onsuccess={handleSuccess}>
+            <lightning-messages> </lightning-messages>
+
+            <lightning-input-field field-name="Account__c"> </lightning-input-field>
+            <lightning-input-field field-name="Opportunity__c"> </lightning-input-field>
+            <lightning-input-field field-name="Status__c"> </lightning-input-field>
+            <lightning-input-field field-name="Destination__c"> </lightning-input-field>
+            <lightning-input-field field-name="Start_Date__c"> </lightning-input-field>
+            <lightning-input-field field-name="End_Date__c"> </lightning-input-field>
+            <lightning-input-field field-name="Number_of_Participants__c"> </lightning-input-field>
+
+            <lightning-button
+                class="slds-m-top_small"
+                type="submit"
+                label="Create new Trip"
+                onclick ={handleSubmit}
+                >
+                </lightning-button>
+            </lightning-record-edit-form>
+        
+        
+        </lightning-modal-body>
+    </template>
+
+    <template if:true={modalCreateTripApex}>
+    <lightning-modal-header label="Create New Trip Apex"></lightning-modal-header>
+
+    <lightning-modal-body>
+
+        <!-- <lightning-combobox type ="text" name="Opportunity__c" label="Opportunity" options={options} onchange={handleChange}> </lightning-combobox> -->
+        <lightning-combobox type ="text" name="status" label="Status" options={statusTripOptions} onchange={handleChange}> </lightning-combobox>
+        <lightning-input type="text" label="Destination" name="destination" onchange={handleChange}></lightning-input>
+        <lightning-input type="date" label="Start Date" name="startDate" onchange={handleChange}></lightning-input>
+        <lightning-input type="date" label="End Date" name="endDate" onchange={handleChange}></lightning-input>
+        <lightning-input type="number" label="Number of Participants" name="numberOfParticipants" onchange={handleChange}></lightning-input>
+
+        <div class="slds-m-top_medium">
+            <lightning-button variant="brand" label="Create Trip" onclick={handleSaveClick}></lightning-button>
+            <lightning-button variant="neutral" label="Cancel" onclick={handleCloseClick} class="slds-m-left_small"></lightning-button>
+        </div>
+    </lightning-modal-body>
+    </template>
+
+    <template if:true={modalUpdateTrip}>
+    <lightning-modal-header label="Update Trip Apex"></lightning-modal-header>
+
+    <lightning-modal-body>
+
+        <!-- <lightning-combobox type ="text" name="Opportunity__c" label="Opportunity" options={options} onchange={handleChange}> </lightning-combobox> -->
+        <lightning-combobox type ="text" name="status" label="Status" value={statusEdit} options={statusTripOptions} onchange={handleChange}> </lightning-combobox>
+        <lightning-input type="text" label="Destination" value={destinationEdit} name="destination" onchange={handleChange}></lightning-input>
+        <lightning-input type="date" label="Start Date" value={startDateEdit} name="startDate" onchange={handleChange}></lightning-input>
+        <lightning-input type="date" label="End Date" value={endDateEdit} name="endDate" onchange={handleChange}></lightning-input>
+        <lightning-input type="number" label="Number of Participants" value={numberOfParticipantsEdit} name="numberOfParticipants" onchange={handleChange}></lightning-input>
+
+        <div class="slds-m-top_medium">
+            <lightning-button variant="brand" label="Update Trip" onclick={handleSaveClick}></lightning-button>
+            <lightning-button variant="neutral" label="Cancel" onclick={handleCloseClick} class="slds-m-left_small"></lightning-button>
+        </div>
+    </lightning-modal-body>
+    </template>
+
+    <template if:true={modalCreateOppApex}>
+    <lightning-modal-header label="Create New Opp"></lightning-modal-header>
+
+    <lightning-modal-body>
+
+        <!-- <lightning-combobox type ="text" name="Opportunity__c" label="Opportunity" options={options} onchange={handleChange}> </lightning-combobox> -->
+        <lightning-input type="text" label="Name" name="name" onchange={handleChange} required></lightning-input>
+        <lightning-combobox type ="text" label="Stage" name="stage" options={stageOptions} onchange={handleChange} required> </lightning-combobox>
+        <lightning-input type="date" label="Close Date" name="closeDate" onchange={handleChange}></lightning-input>
+        <lightning-input type="currency" label="Amount" name="amount" onchange={handleChange}></lightning-input>
+        <lightning-input type="text" label="Destination" name="destination" onchange={handleChange}></lightning-input>
+        <lightning-input type="date" label="Start Date" name="startDate" onchange={handleChange}></lightning-input>
+        <lightning-input type="date" label="End Date" name="endDate" onchange={handleChange}></lightning-input>
+        <lightning-input type="number" label="Number of Participants" name="numberOfParticipants" onchange={handleChange}></lightning-input>
+
+        <div class="slds-m-top_medium">
+            <lightning-button variant="brand" label="Create Opp" onclick={handleSaveClick}></lightning-button>
+            <lightning-button variant="neutral" label="Cancel" onclick={handleCloseClick} class="slds-m-left_small"></lightning-button>
+        </div>
+    </lightning-modal-body>
+    </template>
+
+    <template if:true={modalUpdateOpp}>
+    <lightning-modal-header label="Update Opportunity"></lightning-modal-header>
+
+    <lightning-modal-body>
+
+         <lightning-combobox type ="text" label="Stage" name="stage" value={stageEdit}  options={stageOptions} onchange={handleChange}> </lightning-combobox>
+        <lightning-input type="date" label="Close Date" name="closeDate"  value={closeDateEdit} onchange={handleChange}></lightning-input>
+        <lightning-input type="currency" label="Amount" name="amount" value={amountEdit} onchange={handleChange}></lightning-input>
+        <lightning-input type="text" label="Destination" name="destination" value={destinationEdit} onchange={handleChange}></lightning-input>
+        <lightning-input type="date" label="Start Date" name="startDate" value={startDateEdit} onchange={handleChange}></lightning-input>
+        <lightning-input type="date" label="End Date" name="endDate" value={endDateEdit} onchange={handleChange}></lightning-input>
+        <lightning-input type="number" label="Number of Participants" value={numberOfParticipantsEdit} name="numberOfParticipants" onchange={handleChange}></lightning-input>
+
+        <div class="slds-m-top_medium">
+            <lightning-button variant="brand" label="Update Opportunity" onclick={handleSaveClick}></lightning-button>
+            <lightning-button variant="neutral" label="Cancel" onclick={handleCloseClick} class="slds-m-left_small"></lightning-button>
+        </div>
+    </lightning-modal-body>
+    </template>
+
+    <template if:true={modalCreateContractApex}>
+    <lightning-modal-header label="Create New Contract"></lightning-modal-header>
+
+    <lightning-modal-body>
+        
+
+        <lightning-combobox type ="text" label="Currency" name="currencyIsoCode" options={currencyOptions} onchange={handleChange} required> </lightning-combobox>
+        <lightning-combobox type="text" label="Status" name="status" options={statusContractOptions} onchange={handleChange}></lightning-combobox>
+        <lightning-input type="date" label="Start Date" name="startDate" onchange={handleChange}></lightning-input>
+        <lightning-input type="number" label="Contract Term" name="contractTerm" onchange={handleChange}></lightning-input>
+        
+        <div class="slds-m-top_medium">
+            <lightning-button variant="brand" label="Create Contract" onclick={handleSaveClick}></lightning-button>
+            <lightning-button variant="neutral" label="Cancel" onclick={handleCloseClick} class="slds-m-left_small"></lightning-button>
+        </div>
+    </lightning-modal-body>
+    </template>
+
+    <template if:true={modalUpdateContract}>
+    <lightning-modal-header label="Update Contract"></lightning-modal-header>
+
+    <lightning-modal-body>
+
+        <lightning-output-field type="number" label="Contract Number" name="contractNumber" value={numberEdit} onchange={handleChange} ></lightning-output-field>
+        <lightning-combobox type ="text" label="Currency" name="currencyIsoCode" value={currencyIsoCodeEdit} options={currencyOptions} onchange={handleChange} required> </lightning-combobox>
+        <lightning-combobox type="text" label="Status" name="status" value={statusEdit} options={statusContractOptions} onchange={handleChange}></lightning-combobox>
+        <lightning-input type="date" label="Start Date" name="startDate" value={startDateEdit} onchange={handleChange}></lightning-input>
+        <lightning-input type="number" label="Contract Term" name="contractTerm" value={contractTermEdit} onchange={handleChange}></lightning-input>
+        
+
+        <div class="slds-m-top_medium">
+            <lightning-button variant="brand" label="Update Contract" onclick={handleSaveClick}></lightning-button>
+            <lightning-button variant="neutral" label="Cancel" onclick={handleCloseClick} class="slds-m-left_small"></lightning-button>
+        </div>
+    </lightning-modal-body>
+    </template>
+
+    <template if:true={modalCreateAccountApex}>
+    <lightning-modal-header label="Create New Account"></lightning-modal-header>
+
+    <lightning-modal-body>
+
+        <lightning-input type="text" label="Account Name" name="name" onchange={handleChange} required></lightning-input>
+        <lightning-combobox type ="text" label="Currency" name="currencyIsoCode" options={currencyOptions} onchange={handleChange} required> </lightning-combobox>
+        <lightning-combobox type ="text" label="Industry" name="industry" options={industryOptions} onchange={handleChange} required> </lightning-combobox>
+        <lightning-input type="number" label="Phone" name="phone" onchange={handleChange}></lightning-input>
+        
+        <div class="slds-m-top_medium">
+            <lightning-button variant="brand" label="Create Account" onclick={handleSaveClick}></lightning-button>
+            <lightning-button variant="neutral" label="Cancel" onclick={handleCloseClick} class="slds-m-left_small"></lightning-button>
+        </div>
+    </lightning-modal-body>
+    </template>
+
+    <template if:true={modalUpdateAccount}>
+    <lightning-modal-header label="Update Account"></lightning-modal-header>
+
+    <lightning-modal-body>
+
+         <lightning-input type="text" label="Account Name" name="name" value={nameEdit} onchange={handleChange} required></lightning-input>
+        <lightning-combobox type ="text" label="Currency" name="currencyIsoCode" options={currencyOptions} value={currencyIsoCodeEdit}  onchange={handleChange} required> </lightning-combobox>
+        <lightning-combobox type ="text" label="Industry" name="industry" options={industryOptions} value={industryEdit} onchange={handleChange} required> </lightning-combobox>
+        <lightning-input type="number" label="Phone" name="phone" value={phoneEdit} onchange={handleChange}></lightning-input>
+
+        <div class="slds-m-top_medium">
+            <lightning-button variant="brand" label="Update Account" onclick={handleSaveClick}></lightning-button>
+            <lightning-button variant="neutral" label="Cancel" onclick={handleCloseClick} class="slds-m-left_small"></lightning-button>
+        </div>
+    </lightning-modal-body>
+    </template>
+
+</template>

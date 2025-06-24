@@ -1,0 +1,31 @@
+<template>
+    <lightning-card  title="Trip Manager" icon-name="custom:custom20">
+
+        <lightning-button 
+        label="New Trip" 
+        slot="actions" 
+        aria-haspopup="dialog"
+        onclick={handleAdd}>
+        </lightning-button>
+
+        <lightning-button 
+        label="New Trip Using Apex" 
+        slot="actions" 
+        aria-haspopup="dialog"
+        onclick={handleAddApex}>
+        </lightning-button>
+
+    <div>
+    <lightning-datatable
+        data={tripItem}
+        columns={columns}
+        key-field="Id"
+        draft-values={draftValues}
+        onsave={handleSave}
+        onrowaction={handleRowAction}
+        hide-checkbox-column="true">
+
+    </lightning-datatable>
+    </div>
+    </lightning-card>
+</template>
