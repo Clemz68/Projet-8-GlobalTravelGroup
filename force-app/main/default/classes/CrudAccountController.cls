@@ -4,10 +4,12 @@ public with sharing class CrudAccountController {
 
     public static List <Account> crudAccControllerGet (){
 
-    try {
-        
+    List <Account> accGet= new List<Account>();
+
+    try { 
+
     return crudAccountSelector.crudAccSelectorGet ();
-        
+     
     } catch (Exception e) {
         throw new AuraHandledException(e.getMessage());
     }
@@ -16,35 +18,65 @@ public with sharing class CrudAccountController {
 
     @AuraEnabled
     public static void crudAccControllerDelete(Id accDelete) {
+
+        Account acc = new Account();
+
         try {
 
-            crudAccountSelector.crudAccSelectorDelete(accDelete);
-    
+        acc = crudAccountSelector.crudAccSelectorDelete(accDelete);
+
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
+        }
+
+        if (acc!= null){
+        delete acc;
         }
     }
 
     @AuraEnabled
     public static Account crudAccControllerCreate (String accJSON) {
+
+        Account accRec = new Account();
+
         try {
 
-            return crudAccountSelector.crudAccSelectorCreate (accJSON);
+            accRec = crudAccountSelector.crudAccSelectorCreate (accJSON);
 
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }
+
+        if (accRec!=null){
+            insert accRec;
+            return accRec;
+        }
+        else {
+        return null;
+        }
+
     }
 
     @AuraEnabled
     public static Account crudAccControllerEdit (String accJSON) {
+
+        Account accRec = new Account();
+
         try {
 
-            return crudAccountSelector.crudAccSelectorEdit (accJSON);
+            accRec = crudAccountSelector.crudAccSelectorEdit (accJSON);
 
         } catch (Exception e) {
             System.debug('Erreur CRUD: ' + e.getMessage());
             throw new AuraHandledException(e.getMessage());
+        }
+
+        if (accRec!=null){
+            update accRec;
+            return accRec;
+        }
+        else {
+        return null;
         }
     }
 }

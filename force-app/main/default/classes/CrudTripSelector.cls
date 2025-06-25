@@ -9,11 +9,11 @@ public with sharing class CrudTripSelector {
       public Integer numberOfParticipants;
     }
 
-    public static void crudTrpSelectorDelete (Id tripDelete) {
+    public static Trip__c crudTrpSelectorDelete (Id tripDelete) {
 
-      Trip__c tripToDelete = [SELECT Id, Status__c FROM Trip__c WHERE Id = :tripDelete LIMIT 1 ];
+      Trip__c trp = [SELECT Id, Status__c FROM Trip__c WHERE Id = :tripDelete LIMIT 1 ];
 
-      delete tripToDelete;
+      return trp;
     }
 
     public static Trip__c crudTrpSelectorCreate (String tripJSON, Id accountId) {
@@ -28,8 +28,6 @@ public with sharing class CrudTripSelector {
                 tripRec.Start_Date__c = tripWrapperRec.startDate;
                 tripRec.End_Date__c = tripWrapperRec.endDate;
                 tripRec.Number_of_Participants__c = tripWrapperRec.numberOfParticipants;
-
-                insert tripRec;
 
                 return tripRec;
             }
@@ -52,8 +50,6 @@ public with sharing class CrudTripSelector {
                 tripRec.Start_Date__c = tripWrapperRec.startDate;
                 tripRec.End_Date__c = tripWrapperRec.endDate;
                 tripRec.Number_of_Participants__c = tripWrapperRec.numberOfParticipants;
-
-                update tripRec;
 
                 return tripRec;
             }
