@@ -8,11 +8,10 @@ public with sharing class CrudAccountSelector {
       public String name;
     }
 
-    public static void crudAccSelectorDelete (Id accDelete) {
+    public static Account crudAccSelectorDelete (Id accDelete) {
 
-      Account accToDelete = [SELECT Id FROM Account WHERE Id = :accDelete LIMIT 1 ];
-
-      delete accToDelete;
+      Account acc = [SELECT Id FROM Account WHERE Id = :accDelete LIMIT 1 ];
+      return acc;
     }
 
     public static Account crudAccSelectorCreate (String accJSON) {
@@ -25,8 +24,6 @@ public with sharing class CrudAccountSelector {
                 accRec.Phone = accWrapperRec.phone;
                 accRec.Industry = accWrapperRec.industry;
                 accRec.Name = accWrapperRec.name;
-
-                insert accRec;
 
                 return accRec;
             }
@@ -51,8 +48,6 @@ public with sharing class CrudAccountSelector {
                 accRec.Phone = accWrapperRec.phone;
                 accRec.Industry = accWrapperRec.industry;
                 accRec.Name = accWrapperRec.name;
-
-                update accRec;
 
                 return accRec;
             }

@@ -12,11 +12,11 @@ public with sharing class CrudOppSelector {
       public Integer numberOfParticipants;
     }
 
-    public static void crudOppSelectorDelete (Id oppDelete) {
+    public static Opportunity crudOppSelectorDelete (Id oppDelete) {
 
-      Opportunity OppToDelete = [SELECT Id FROM Opportunity WHERE Id = :oppDelete LIMIT 1 ];
+      Opportunity opp = [SELECT Id FROM Opportunity WHERE Id = :oppDelete LIMIT 1 ];
 
-      delete OppToDelete;
+      return opp;
     }
 
     public static Opportunity crudOppSelectorCreate (String oppJSON, Id accountId) {
@@ -34,8 +34,6 @@ public with sharing class CrudOppSelector {
                 oppRec.Start_Date__c = oppWrapperRec.startDate;
                 oppRec.End_Date__c = oppWrapperRec.endDate;
                 oppRec.Number_of_Participants__c = oppWrapperRec.numberOfParticipants;
-
-                insert oppRec;
 
                 return oppRec;
             }
@@ -62,11 +60,7 @@ public with sharing class CrudOppSelector {
                 oppRec.Start_Date__c = oppWrapperRec.startDate;
                 oppRec.End_Date__c = oppWrapperRec.endDate;
                 oppRec.Number_of_Participants__c = oppWrapperRec.numberOfParticipants;
-
-                System.debug('oppRec.Amount = ' + oppRec.Amount);
-                update oppRec;
-              Opportunity check = [SELECT Amount FROM Opportunity WHERE Id = :oppRec.Id];
-                System.debug('Amount après update = ' + check.Amount);
+          
                 return oppRec;
             }
             return null;

@@ -9,11 +9,10 @@ public with sharing class CrudContractSelector {
       public Integer contractTerm;
     }
 
-    public static void crudContSelectorDelete (Id contDelete) {
+    public static Contract crudContSelectorDelete (Id contDelete) {
 
-      Contract contToDelete = [SELECT Id FROM Contract WHERE Id = :contDelete LIMIT 1 ];
-
-      delete contToDelete;
+      Contract cont = [SELECT Id FROM Contract WHERE Id = :contDelete LIMIT 1 ];
+      return cont;
     }
 
     public static Contract crudContSelectorCreate (String contJSON, Id accountId) {
@@ -27,8 +26,6 @@ public with sharing class CrudContractSelector {
                 contRec.Status = contWrapperRec.status;
                 contRec.StartDate = contWrapperRec.startDate;
                 contRec.ContractTerm = contWrapperRec.contractTerm;
-
-                insert contRec;
 
                 return contRec;
             }
@@ -53,8 +50,6 @@ public with sharing class CrudContractSelector {
                 contRec.Status = contWrapperRec.status;
                 contRec.StartDate = contWrapperRec.startDate;
                 contRec.ContractTerm = contWrapperRec.contractTerm;
-
-                update contRec;
 
                 return contRec;
             }
