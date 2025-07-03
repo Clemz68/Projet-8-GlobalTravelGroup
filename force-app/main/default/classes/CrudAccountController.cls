@@ -1,4 +1,11 @@
 public with sharing class CrudAccountController {
+  
+    /*
+    *********************************************************
+    @description    : Méthode pour appeler le selector récupérer les comptes.
+    @return         : Liste de comptes
+    *********************************************************
+    */
 
     @AuraEnabled (cacheable=true)
 
@@ -15,7 +22,12 @@ public with sharing class CrudAccountController {
     }
     }
 
-
+    /*
+    *********************************************************
+    @description    : Méthode pour apeler le selector et supprimer le compte.
+    @param          : Le compte à suppr
+    *********************************************************
+    */
     @AuraEnabled
     public static void crudAccControllerDelete(Id accDelete) {
 
@@ -33,7 +45,13 @@ public with sharing class CrudAccountController {
         delete acc;
         }
     }
-
+    /*
+    *********************************************************
+    @description    : Méthode pour apeler le selector et créer un compte.
+    @param          : objet js sous format JSON
+    @return         : Le compte inséré 
+    *********************************************************
+    */
     @AuraEnabled
     public static Account crudAccControllerCreate (String accJSON) {
 
@@ -56,6 +74,13 @@ public with sharing class CrudAccountController {
         }
 
     }
+     /*
+    *********************************************************
+    @description    : Méthode pour apeler le selector et éditer un compte.
+    @param          : objet js sous format JSON
+    @return         : Le compte édité
+    *********************************************************
+    */
 
     @AuraEnabled
     public static Account crudAccControllerEdit (String accJSON) {

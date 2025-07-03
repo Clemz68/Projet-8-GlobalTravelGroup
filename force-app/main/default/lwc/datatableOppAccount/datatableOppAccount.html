@@ -1,24 +1,25 @@
 <template>
-    <lightning-card  title="Opportunity Manager" icon-name="standard:opportunity">
-
+    <lightning-card title="Opportunity Manager" icon-name="standard:opportunity">
+        <!-- Bouton pour créer une nouvelle opp -->
         <lightning-button 
-        label="New Opportunity" 
-        slot="actions" 
-        aria-haspopup="dialog"
-        onclick={handleAddApex}>
+            label="New Opportunity" 
+            slot="actions" 
+            aria-haspopup="dialog"
+            onclick={handleAddApex}>
         </lightning-button>
 
-    <div>
-    <lightning-datatable
-        data={oppItem}
-        columns={columns}
-        key-field="Id"
-        draft-values={draftValues}
-        onsave={handleSave}
-        onrowaction={handleRowAction}
-        hide-checkbox-column= "true">
+        <!-- Tableau affichant les opp-->
+        <div>
+            <lightning-datatable
+                data={oppItem}
+                columns={columns}
+                key-field="Id"
+                draft-values={draftValues}
+                onsave={handleSave}
+                onrowaction={handleRowAction}
+                hide-checkbox-column="true">
+            </lightning-datatable>
+        </div>
 
-    </lightning-datatable>
-    </div>
     </lightning-card>
 </template>

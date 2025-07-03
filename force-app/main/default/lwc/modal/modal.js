@@ -74,9 +74,14 @@ export default class Modal extends LightningModal {
     statusEdit;
     destinationEdit;
     startDateEdit;
-    
-    connectedCallback() {
 
+        /**
+         * @description Méthode appelée automatiquement lors de l'insertion du composant dans le DOM.
+         * Initialise les valeurs des champs en mode "mise à jour" (update)
+         * en fonction de l'objet à modifier passé dans la propriété @api objectToUdpate.
+         */
+    connectedCallback() {
+        
         if (this.modalUpdateTrip){
             this.statusEdit = this.objectToUdpate.row.Status__c;
             this.destinationEdit = this.objectToUdpate.row.Destination__c;
@@ -107,167 +112,156 @@ export default class Modal extends LightningModal {
             this.phoneEdit = this.objectToUdpate.row.Phone;
         }
     }
-        
 
     handleSuccess(event) {
-            this.newTripId = event.detail.id;
+        /**
+         * @description Méthode appelée lors du succès du formulaire de création d'un enregistrement. 
+         * Récupère l'ID du nouvel enregistrement depuis l'événement et ferme la modale avec succès.
+         * @param {Event} event L’événement contenant les détails de l’action et la ligne concernée.
+         */
+        this.newTripId = event.detail.id;
         if (this.newTripId) {
             this.close('success');
         }
     }
 
-    handleChange(event){
-
-        if (this.modalCreateTripApex || this.modalCreateOppApex ||this.modalCreateContractApex || this.modalCreateAccountApex) {
-             const name = event.target.name;
+    handleChange(event) {
+        /**
+         * @description Méthode appelée à chaque changement de valeur d'un champ de formulaire.
+         * Met à jour les propriétés locales correspondantes selon le contexte (création ou mise à jour).
+         * Utilise le nom du champ (event.target.name) pour déterminer quelle propriété modifier.
+         * @param {Event} event L’événement contenant les détails de l’action et la ligne concernée.
+         */
+        
+        if (this.modalCreateTripApex || this.modalCreateOppApex || this.modalCreateContractApex || this.modalCreateAccountApex) {
+            const name = event.target.name;
             const value = event.target.value;
             this.fieldsValues = {...this.fieldsValues, [name]: value};
         } 
         
-        if (this.modalCreateTrip){
+        if (this.modalUpdateTrip || this.modalUpdateOpp || this.modalUpdateContract || this.modalUpdateAccount) {
 
-
-        }
-
-        if (this.modalUpdateTrip || this.modalUpdateOpp || this.modalUpdateContract || this.modalUpdateAccount){
-    
-            console.log('event.detals.name '+event.target.name+' : '+event.target.value);
-           
-            if(event.target.name=='name'){
-            
-                this.nameEdit = event.target.value;
-            }
-    
-            if(event.target.name=='currencyIsoCode'){
-            
-                this.currencyIsoCodeEdit = event.target.value;
-            }
-    
-            if(event.target.name=='industry'){
-            
-                this.industryEdit = event.target.value;
-            }
-    
-            if(event.target.name=='phone'){
-            console.log ('acc à update' + JSON.stringify(this.objectToUdpate, null, 2));
-                this.phoneEdit = event.target.value;
-            }
-            if(event.target.name=='stage'){
-        
-            this.stageEdit = event.target.value;
-            }
-
-            if(event.target.name=='closeDate'){
-            
-                this.closeDateEdit = event.target.value;
-            }
-
-            if(event.target.name=='amount'){
-            
-                this.amountEdit = event.target.value;
-            }
-
-            if(event.target.name=='destination'){
-            console.log ('object à update' + JSON.stringify(this.objectToUdpate, null, 2));
-            console.log ('ligne à update' + this.objectToUdpate.row.Status__c);
-                this.destinationEdit = event.target.value;
-            }
-
-            if(event.target.name=='endDate'){
-                this.endDateEdit = event.target.value;
-            }
-            if(event.target.name=='numberOfParticipants'){
-                this.numberOfParticipantsEdit = event.target.value;
-            }
-           
-            if(event.target.name=='contractTerm'){
-            
-                this.contractTermEdit = event.target.value;
-            }
-
-            if(event.target.name=='startDate'){
-            console.log ('cont à update' + JSON.stringify(this.objectToUdpate, null, 2));
-                this.startDateEdit = event.target.value;
-            }
-             if(event.target.name=='status'){
-            console.log ('object à update' + JSON.stringify(this.objectToUdpate, null, 2));
-            console.log ('ligne à update' + this.objectToUdpate.row.Status__c);
-                this.statusEdit = event.target.value;
+            switch(event.target.name) {
+                case 'name':
+                    this.nameEdit = event.target.value;
+                    break;
+                case 'currencyIsoCode':
+                    this.currencyIsoCodeEdit = event.target.value;
+                    break;
+                case 'industry':
+                    this.industryEdit = event.target.value;
+                    break;
+                case 'phone':
+                    this.phoneEdit = event.target.value;
+                    break;
+                case 'stage':
+                    this.stageEdit = event.target.value;
+                    break;
+                case 'closeDate':
+                    this.closeDateEdit = event.target.value;
+                    break;
+                case 'amount':
+                    this.amountEdit = event.target.value;
+                    break;
+                case 'destination':
+                    this.destinationEdit = event.target.value;
+                    break;
+                case 'endDate':
+                    this.endDateEdit = event.target.value;
+                    break;
+                case 'numberOfParticipants':
+                    this.numberOfParticipantsEdit = event.target.value;
+                    break;
+                case 'contractTerm':
+                    this.contractTermEdit = event.target.value;
+                    break;
+                case 'startDate':
+                    this.startDateEdit = event.target.value;
+                    break;
+                case 'status':
+                    this.statusEdit = event.target.value;
+                    break;
+                default:
+                
             }
         }
     }
-    
-    handleSaveClick(){
-
-        if (this.modalCreateTripApex || this.modalCreateOppApex ||this.modalCreateContractApex || this.modalCreateAccountApex) {
+     /**
+    * @description Méthode appelée au clic sur le bouton de sauvegarde.
+    * Prépare un objet contenant les données du formulaire sous forme d'objet JavaScript,
+    * le transforme en chaîne JSON, puis ferme la modale en renvoyant ces données.
+    */
+    handleSaveClick() {
+      
+        
+        if (this.modalCreateTripApex || this.modalCreateOppApex || this.modalCreateContractApex || this.modalCreateAccountApex) {
             let objectString = JSON.stringify(this.fieldsValues);
             this.close(objectString);
         } 
         
         if (this.modalUpdateTrip){
             this.fieldsValues = {
-                id:this.objectToUdpate.row.Id,
-                status:this.statusEdit,
-                destination:this.destinationEdit,
-                startDate:this.startDateEdit,
-                endDate:this.endDateEdit,
-                numberOfParticipants:this.numberOfParticipantsEdit
-        };
-        let objectString = JSON.stringify(this.fieldsValues);
-        this.close(objectString);
+                id: this.objectToUdpate.row.Id,
+                status: this.statusEdit,
+                destination: this.destinationEdit,
+                startDate: this.startDateEdit,
+                endDate: this.endDateEdit,
+                numberOfParticipants: this.numberOfParticipantsEdit
+            };
+            let objectString = JSON.stringify(this.fieldsValues);
+            this.close(objectString);
         }
+
         if (this.modalUpdateOpp){
             this.fieldsValues = {
-                stage:this.stageEdit,
-                closeDate:this.closeDateEdit,
-                amount:this.amountEdit,
-                Id:this.objectToUdpate.row.Id,
-                destination:this.destinationEdit,
-                startDate:this.startDateEdit,
-                endDate:this.endDateEdit,
-                numberOfParticipants:this.numberOfParticipantsEdit
-        };
-        let objectString = JSON.stringify(this.fieldsValues);
-        this.close(objectString);
+                stage: this.stageEdit,
+                closeDate: this.closeDateEdit,
+                amount: this.amountEdit,
+                Id: this.objectToUdpate.row.Id,
+                destination: this.destinationEdit,
+                startDate: this.startDateEdit,
+                endDate: this.endDateEdit,
+                numberOfParticipants: this.numberOfParticipantsEdit
+            };
+            let objectString = JSON.stringify(this.fieldsValues);
+            this.close(objectString);
         }
+
         if (this.modalUpdateContract){
             this.fieldsValues = {
-                status:this.statusEdit,
-                currencyIsoCode:this.currencyIsoCodeEdit,
-                startDate:this. startDateEdit,
-                Id:this.objectToUdpate.row.Id,
-                contractTerm:this.contractTermEdit,
-        };
-        let objectString = JSON.stringify(this.fieldsValues);
-        this.close(objectString);
-          
+                status: this.statusEdit,
+                currencyIsoCode: this.currencyIsoCodeEdit,
+                startDate: this.startDateEdit,
+                Id: this.objectToUdpate.row.Id,
+                contractTerm: this.contractTermEdit,
+            };
+            let objectString = JSON.stringify(this.fieldsValues);
+            this.close(objectString);
         }
+
         if (this.modalUpdateAccount){
             this.fieldsValues = {
-                name:this.nameEdit,
-                currencyIsoCode:this.currencyIsoCodeEdit,
-                industry:this.industryEdit,
-                id:this.objectToUdpate.row.Id,
-                phone:this.phoneEdit,
+                name: this.nameEdit,
+                currencyIsoCode: this.currencyIsoCodeEdit,
+                industry: this.industryEdit,
+                id: this.objectToUdpate.row.Id,
+                phone: this.phoneEdit,
             };
             let objectString = JSON.stringify(this.fieldsValues);
             this.close(objectString);
         }
     }
-
-    handleSuccess(event) {
-            this.newTripId = event.detail.id;
-        if (this.newTripId) {
-            this.close('success');
-        }
-    }
-
+        /**
+         * @description Méthode appelée lors de l'annulation explicite (ex: clic sur bouton Annuler).
+         * Ferme la modale sans renvoyer de données (null).
+         */
     handleCancelClick() {
         this.close(null);
     }
-
+        /**
+         * @description  Méthode appelée pour fermer la modale avec un statut "canceled".
+         */
     handleCloseClick() {
         this.close('canceled');
     }
 }
-

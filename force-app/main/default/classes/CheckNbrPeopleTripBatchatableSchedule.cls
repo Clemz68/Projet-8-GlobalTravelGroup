@@ -1,19 +1,24 @@
-/**
- * Classe batch et schedulable qui annule les voyages ayant moins de 10 participants dans les 7 prochains jours.
- * @author Clément
- * @date 2025-05-13
- */
-
 public class CheckNbrPeopleTripBatchatableSchedule implements Database.Batchable<sObject>,Database.Stateful, Schedulable {
-   
-    // Variable d'instance pour récupérer l'état du batch
     public Integer recordsProcessed = 0;
-    
+
+    /**
+     * Méthode start - Point d'entrée du batch
+     * Prépare la requête SOQL pour récupérer tous les enregistrements Trip__c
+     * @param bc Contexte du batch (non utilisé ici)
+     * @return QueryLocator pour paginer les résultats
+     */
     public Database.QueryLocator start(Database.BatchableContext bc) {
         Date dateSevenDaysLater = Date.today().addDays(7);
         String query = 'SELECT Id, Start_Date__c, End_Date__c, Number_of_Participants__c, Status__c FROM Trip__c WHERE Start_Date__c <= :dateSevenDaysLater';
         return Database.getQueryLocator(query);
     }
+
+     /**
+     * Méthode execute - Traite chaque lot d'enregistrements
+     * Met à jour le statut des trips selon le nombre de participants
+     * @param bc Contexte du batch (non utilisé ici)
+     * @param trips Liste des Trip__c traités dans ce lot
+     */
     public void execute(Database.BatchableContext bc, list<Trip__c> trips){
         
         List <Trip__c> tripsToUpdate = new List<Trip__c>();
@@ -30,7 +35,11 @@ public class CheckNbrPeopleTripBatchatableSchedule implements Database.Batchable
             update tripsToUpdate;
             }
         }
-        
+    /**
+     * Méthode finish - S'exécute après le traitement de tous les lots
+     * Utilisée pour envoyer une notification ou enregistrer un log
+     * @param bc Contexte du batch (non utilisé ici)
+     */
     public void finish(Database.BatchableContext bc){
              System.debug(recordsProcessed + ' records processed. Shazam!');
         AsyncApexJob job = [SELECT Id, Status, NumberOfErrors,
@@ -41,7 +50,10 @@ public class CheckNbrPeopleTripBatchatableSchedule implements Database.Batchable
         // call some utility to send email
         EmailUtils.sendMessage(job, recordsProcessed);
     }
-    
+    /**
+     * Méthode execute du Scheduler - Lance l'exécution du batch via un scheduler
+     * @param sc Contexte du scheduler
+     */
     public void execute(SchedulableContext sc) {
 
     CheckNbrPeopleTripBatchatableSchedule batch = new CheckNbrPeopleTripBatchatableSchedule();
