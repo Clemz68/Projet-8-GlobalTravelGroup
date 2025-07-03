@@ -1,5 +1,11 @@
 public with sharing class CrudTripController {
-    
+      /*
+    *********************************************************
+    @description    : Méthode pour appeler le selector et récupérer les trips liés au compte.
+    @param          : Id du compte
+    @return         : Liste de trips
+    *********************************************************
+    */
     @AuraEnabled
     public static void crudTrpControllerDelete(Id tripDelete) {
 
@@ -18,7 +24,12 @@ public with sharing class CrudTripController {
             delete trp;
         }
     }
-
+    /*
+    *********************************************************
+    @description    : Méthode pour apeler le selector et supprimer le trip.
+    @param          : Le trip à suppr
+    *********************************************************
+    */
     @AuraEnabled
     public static Trip__c crudTrpControllerCreate (String tripJSON, Id accountId) {
         
@@ -39,7 +50,13 @@ public with sharing class CrudTripController {
             return null;
         }
     }
-
+    /*
+    *********************************************************
+    @description    : Méthode pour apeler le selector et créer un trip.
+    @param          : objet js sous format JSON
+    @return         : Le trip inséré
+    *********************************************************
+    */
     @AuraEnabled
     public static Trip__c crudTrpControllerEdit (String tripJSON) {
 
@@ -62,17 +79,18 @@ public with sharing class CrudTripController {
         }
 
     }
-
+     /*
+    *********************************************************
+    @description    : Méthode pour apeler le selector et éditer un trip.
+    @param          : objet js sous format JSON
+    @return         : Le trip édité
+    *********************************************************
+    */
     @AuraEnabled (cacheable=true)
 
     public static List <Trip__c> crudTrpControllerGet (Id accountId){
 
-    try {
-        
     return crudTripSelector.crudTrpSelectorGet (accountId);
-        
-    } catch (Exception e) {
-        throw new AuraHandledException(e.getMessage());
-    }
+    
     }
 }

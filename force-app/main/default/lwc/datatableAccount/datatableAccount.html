@@ -1,24 +1,26 @@
 <template>
-    <lightning-card  title="Account Manager" icon-name="standard:account">
+    <lightning-card title="Account Manager" icon-name="standard:account">
 
+        <!-- Bouton pour créer un nouvel Account, déclenche une action Apex -->
         <lightning-button 
-        label="New Account" 
-        slot="actions" 
-        aria-haspopup="dialog"
-        onclick={handleAddApex}>
+            label="New Account" 
+            slot="actions" 
+            aria-haspopup="dialog"
+            onclick={handleAddApex}>
         </lightning-button>
 
-    <div>
-    <lightning-datatable
-        data={accItem}
-        columns={columns}
-        key-field="Id"
-        draft-values={draftValues}
-        onsave={handleSave}
-        onrowaction={handleRowAction}
-        hide-checkbox-column= "true">
+        <div>
+            <!-- Tableau des comptes affichés avec possibilité d’édition inline -->
+            <lightning-datatable
+                data={accItem}
+                columns={columns}
+                key-field="Id"
+                draft-values={draftValues}
+                onsave={handleSave}
+                onrowaction={handleRowAction}
+                hide-checkbox-column="true">
+            </lightning-datatable>
+        </div>
 
-    </lightning-datatable>
-    </div>
     </lightning-card>
 </template>

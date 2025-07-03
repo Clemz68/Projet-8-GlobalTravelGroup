@@ -1,14 +1,13 @@
 <template>
-    <lightning-card  title="Contract Manager" icon-name="standard:contract">
-
-        <lightning-button 
+    <!-- Bouton pour créer un nouveau contrat -->
+    <lightning-button 
         label="New Contract" 
         slot="actions" 
         aria-haspopup="dialog"
         onclick={handleAddApex}>
-        </lightning-button>
+    </lightning-button>
 
-    <div>
+    <!-- Tableau affichant les contrats -->
     <lightning-datatable
         data={contItem}
         columns={columns}
@@ -16,9 +15,6 @@
         draft-values={draftValues}
         onsave={handleSave}
         onrowaction={handleRowAction}
-        hide-checkbox-column= "true">
-
+        hide-checkbox-column="true">
     </lightning-datatable>
-    </div>
-    </lightning-card>
 </template>

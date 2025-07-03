@@ -1,5 +1,11 @@
 public with sharing class CrudContractController {
-
+    /*
+    *********************************************************
+    @description    : Méthode pour appeler le selector et récupérer les contract liés au compte.
+    @param          : Id du compte
+    @return         : Liste de contrats
+    *********************************************************
+    */
      @AuraEnabled (cacheable=true)
 
     public static List <Contract> crudContControllerGet (Id accountId){
@@ -12,7 +18,12 @@ public with sharing class CrudContractController {
         throw new AuraHandledException(e.getMessage());
     }
     }
-
+    /*
+    *********************************************************
+    @description    : Méthode pour apeler le selector et supprimer le contrat.
+    @param          : Le contrat à suppr
+    *********************************************************
+    */
 
     @AuraEnabled
     public static void crudContControllerDelete(Id contDelete) {
@@ -33,7 +44,13 @@ public with sharing class CrudContractController {
         }
 
     }
-
+    /*
+    *********************************************************
+    @description    : Méthode pour apeler le selector et créer un contrat.
+    @param          : objet js sous format JSON
+    @return         : Le contrat inséré 
+    *********************************************************
+    */
     @AuraEnabled
     public static Contract crudContControllerCreate (String contJSON, Id accountId) {
         
@@ -52,7 +69,13 @@ public with sharing class CrudContractController {
         }
         return null;
     }
-
+     /*
+    *********************************************************
+    @description    : Méthode pour apeler le selector et éditer un contrat.
+    @param          : objet js sous format JSON
+    @return         : Le contrat édité
+    *********************************************************
+    */
     @AuraEnabled
     public static Contract crudContControllerEdit (String contJSON) {
 

@@ -8,13 +8,25 @@ public with sharing class CrudContractSelector {
       public Date startDate;
       public Integer contractTerm;
     }
-
+  /*
+    *********************************************************
+    @description    : Méthode avec SOQL pour récupérer un contrat.
+    @param          : Id du contrat
+    @return         : Le contrat
+    *********************************************************
+    */
     public static Contract crudContSelectorDelete (Id contDelete) {
 
       Contract cont = [SELECT Id FROM Contract WHERE Id = :contDelete LIMIT 1 ];
       return cont;
     }
-
+    /*
+    *********************************************************
+    @description    : Méthode pour créer un contrat.
+    @param          : objet js sous format JSON, Id du compte
+    @return         : objet contrat sans Id propre
+    *********************************************************
+    */
     public static Contract crudContSelectorCreate (String contJSON, Id accountId) {
         try {
             ContWrapper contWrapperRec =  (ContWrapper) JSON.deserialize(contJSON,ContWrapper.class);
@@ -36,7 +48,13 @@ public with sharing class CrudContractSelector {
             throw new AuraHandledException(e.getMessage());
         }
     }
-
+    /*
+    *********************************************************
+    @description    : Méthode pour éditer un contrat.
+    @param          : objet js sous format JSON
+    @return         : objet contrat complet avec Id existant
+    *********************************************************
+    */
     public static Contract crudcontSelectorEdit (String contJSON) {
 
        try {
@@ -60,6 +78,13 @@ public with sharing class CrudContractSelector {
             throw new AuraHandledException(e.getMessage());
         }
     }
+    /*
+    *********************************************************
+    @description    : Méthode avec SOQL pour récupérer les contrat liés au compte.
+    @param          : Id du compte
+    @return         : Liste de contrats
+    *********************************************************
+    */
   public static List <Contract> crudContSelectorGet (Id accountId) {
 
       List <Contract> conts = [SELECT Id, AccountId, ContractNumber, CurrencyIsoCode, Status, StartDate, ContractTerm FROM Contract WHERE AccountId = :accountId];

@@ -11,14 +11,26 @@ public with sharing class CrudOppSelector {
       public Date endDate;
       public Integer numberOfParticipants;
     }
-
+  /*
+    *********************************************************
+    @description    : Méthode avec SOQL pour récupérer une Opp.
+    @param          : Id de l'Opp
+    @return         : L'Opp'
+    *********************************************************
+    */
     public static Opportunity crudOppSelectorDelete (Id oppDelete) {
 
       Opportunity opp = [SELECT Id FROM Opportunity WHERE Id = :oppDelete LIMIT 1 ];
 
       return opp;
     }
-
+  /*
+    *********************************************************
+    @description    : Méthode pour créer une Opp.
+    @param          : objet js sous format JSON, Id du compte
+    @return         : objet Opp sans Id propre
+    *********************************************************
+    */
     public static Opportunity crudOppSelectorCreate (String oppJSON, Id accountId) {
         try {
             OppWrapper oppWrapperRec =  (OppWrapper) JSON.deserialize(oppJSON,OppWrapper.class);
@@ -44,7 +56,13 @@ public with sharing class CrudOppSelector {
             throw new AuraHandledException(e.getMessage());
         }
     }
-
+  /*
+    *********************************************************
+    @description    : Méthode pour éditer un Opp.
+    @param          : objet js sous format JSON
+    @return         : objet Opp complet avec Id existant
+    *********************************************************
+    */
     public static Opportunity crudOppSelectorEdit (String oppJSON) {
 
        try {
@@ -70,6 +88,15 @@ public with sharing class CrudOppSelector {
             throw new AuraHandledException(e.getMessage());
         }
     }
+
+     /*
+    *********************************************************
+    @description    : Méthode avec SOQL pour récupérer les Opps liés au compte.
+    @param          : Id du compte
+    @return         : Liste d'Opps
+    *********************************************************
+    */
+
   public static List <Opportunity> crudOppSelectorGet (Id accountId) {
 
       List <Opportunity> opps = [SELECT Id, Name, Number_of_Participants__c, Destination__c, Start_Date__c, End_Date__c, AccountId, StageName, CloseDate, Amount FROM Opportunity WHERE AccountId = :accountId];
