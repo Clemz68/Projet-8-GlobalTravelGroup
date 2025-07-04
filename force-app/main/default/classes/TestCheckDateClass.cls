@@ -1,13 +1,21 @@
 @isTest
 private class TestCheckDateClass {
-
+    /*
+    *********************************************************
+    @description    : Méthode avec @testSetup pour créer des records
+    *********************************************************
+    */
    @testSetup
     static void testSetup() {
        
         List <Trip__c> trps = FactoryClass.createTestDataTripB();
         insert trps; 
     }
-
+    /*
+    *********************************************************
+    @description    : Méthode de test pour tester la mise a jour des status selon les dates des trips
+    *********************************************************
+    */
     @isTest 
     static void test() {
 

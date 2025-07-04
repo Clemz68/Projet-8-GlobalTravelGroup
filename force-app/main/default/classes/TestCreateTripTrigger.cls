@@ -1,6 +1,11 @@
 @isTest
 private class TestCreateTripTrigger {
 
+    /*
+    *********************************************************
+    @description    : Méthode de test pour tester la bonne création du Trip
+    *********************************************************
+    */
     @isTest
     static void myUnitTest() {
        

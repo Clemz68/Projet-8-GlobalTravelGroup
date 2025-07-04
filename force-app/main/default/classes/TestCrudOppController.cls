@@ -11,7 +11,11 @@ private class TestCrudOppController {
       public Date endDate;
       public Integer numberOfParticipants;
     }
-
+   /*
+    *********************************************************
+    @description    : Méthode de test pour tester la classe controller qui supprime une opp
+    *********************************************************
+    */
     @isTest
     static void testDelete() {
         
@@ -24,7 +28,11 @@ private class TestCrudOppController {
     System.assertEquals(0, opp.size(), 'L opp aurait dû être supprimée');
    
     }
-
+    /*
+    *********************************************************
+    @description    : Méthode de test pour tester la classe controller qui récupère les opps
+    *********************************************************
+    */
      @isTest
     static void testGet() {
     
@@ -36,7 +44,11 @@ private class TestCrudOppController {
     System.assertNotEquals(null, opp, 'la soql aurait du retourner un obj');
 
     }
-
+   /*
+    *********************************************************
+    @description    : Méthode de test pour tester la classe controller qui créer une opp
+    *********************************************************
+    */
      @isTest
     static void testCreate() {
     
@@ -57,7 +69,11 @@ private class TestCrudOppController {
     System.assertNotEquals(null, opp, 'la soql aurait du retourner un obj');
 
     }
-
+   /*
+    *********************************************************
+    @description    : Méthode de test pour tester la classe controller qui édite une opp
+    *********************************************************
+    */
      @isTest
     static void testEdit() {
         
