@@ -1,20 +1,24 @@
 <template>
-    <!-- Bouton pour créer un nouveau contrat -->
-    <lightning-button 
-        label="New Contract" 
-        slot="actions" 
-        aria-haspopup="dialog"
-        onclick={handleAddApex}>
-    </lightning-button>
+    <lightning-card title="Contract Manager" icon-name="standard:contract">
 
-    <!-- Tableau affichant les contrats -->
-    <lightning-datatable
-        data={contItem}
-        columns={columns}
-        key-field="Id"
-        draft-values={draftValues}
-        onsave={handleSave}
-        onrowaction={handleRowAction}
-        hide-checkbox-column="true">
-    </lightning-datatable>
+        <lightning-button 
+            label="New Contract" 
+            slot="actions" 
+            aria-haspopup="dialog"
+            onclick={handleAddApex}>
+        </lightning-button>
+
+        <!-- Tableau affichant les contrats -->
+        <div>
+            <lightning-datatable
+                data={contItem}
+                columns={columns}
+                key-field="Id"
+                draft-values={draftValues}
+                onsave={handleSave}
+                onrowaction={handleRowAction}
+                hide-checkbox-column="true">
+            </lightning-datatable>
+        </div>
+    </lightning-card>
 </template>

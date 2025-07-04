@@ -17,7 +17,7 @@ const columns = [
     { label: 'Start Date', fieldName: 'StartDate', type: 'date', editable: true },
     { label: 'Contract Term', fieldName: 'ContractTerm', type: 'number', editable: true },
     {
-        label: 'See Contract', type: 'button', initialWidth: 125,
+        label: 'See Contract', type: 'button', initialWidth: 150,
         typeAttributes: {
             iconName: 'utility:preview',
             label: 'See Contract',
