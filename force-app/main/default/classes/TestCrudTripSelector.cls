@@ -8,7 +8,11 @@ private class TestCrudTripSelector {
       public Date endDate;
       public Integer numberOfParticipants;
     }
-
+    /*
+    *********************************************************
+    @description    : Méthode de test pour tester la classe selector qui supprime un trip
+    *********************************************************
+    */
     @isTest
     static void testDelete() {
         
@@ -20,7 +24,11 @@ private class TestCrudTripSelector {
     System.assertNotEquals(null, trp, 'la soql aurait du retourner un obj');
 
     }
-
+    /*
+    *********************************************************
+    @description    : Méthode de test pour tester la classe selector qui récupère les trips
+    *********************************************************
+    */
      @isTest
     static void testGet() {
     
@@ -32,7 +40,10 @@ private class TestCrudTripSelector {
     System.assertNotEquals(null, trp, 'la soql aurait du retourner un obj');
 
     }
-
+    /*
+    *********************************************************
+    @description    : Méthode de test pour tester la classe selector qui créer un trip
+    */
      @isTest
     static void testCreate() {
     
@@ -53,7 +64,11 @@ private class TestCrudTripSelector {
     System.assertNotEquals(null, trp, 'la soql aurait du retourner un obj');
 
     }
-
+    /*
+    *********************************************************
+    @description    : Méthode de test pour tester la classe selector qui édite un trip
+    *********************************************************
+    */
      @isTest
     static void testEdit() {
         

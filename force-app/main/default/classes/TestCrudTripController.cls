@@ -8,7 +8,11 @@ private class TestCrudTripController {
       public Date endDate;
       public Integer numberOfParticipants;
     }
-
+  /*
+    *********************************************************
+    @description    : Méthode de test pour tester la classe controller qui supprime un trip
+    *********************************************************
+    */
     @isTest
     static void testDelete() {
         
@@ -21,7 +25,11 @@ private class TestCrudTripController {
     System.assertEquals(0, trp.size(), 'Le Trip__c aurait dû être supprimé');
    
     }
-
+    /*
+    *********************************************************
+    @description    : Méthode de test pour tester la classe controller qui récupère les trips
+    *********************************************************
+    */
      @isTest
     static void testGet() {
     
@@ -33,7 +41,11 @@ private class TestCrudTripController {
     System.assertNotEquals(null, trp, 'la soql aurait du retourner un obj');
 
     }
-
+    /*
+    *********************************************************
+    @description    : Méthode de test pour tester la classe controller qui créer un trip
+    *********************************************************
+    */
      @isTest
     static void testCreate() {
     
@@ -54,7 +66,11 @@ private class TestCrudTripController {
     System.assertNotEquals(null, trp, 'la soql aurait du retourner un obj');
 
     }
-
+    /*
+    *********************************************************
+    @description    : Méthode de test pour tester la classe controller qui créer un trip
+    *********************************************************
+    */
      @isTest
     static void testEdit() {
         

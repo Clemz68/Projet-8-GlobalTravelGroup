@@ -7,6 +7,11 @@ private class TestCrudAccountController {
       public String industry;
       public String name;
     }
+    /*
+    *********************************************************
+    @description    : Méthode de test pour tester la classe controller qui supprime un account
+    *********************************************************
+    */
 
     @isTest
     static void testDelete() {
@@ -19,6 +24,11 @@ private class TestCrudAccountController {
     System.assertNotEquals(null, acc, 'la soql aurait du retourner un account');
 
     }
+   /*
+    *********************************************************
+    @description    : Méthode de test pour tester la classe controller qui recupère les account
+    *********************************************************
+    */
 
      @isTest
     static void testGet() {
@@ -29,6 +39,12 @@ private class TestCrudAccountController {
     System.assertNotEquals(null, acc, 'la soql aurait du retourner un account');
 
     }
+     /*
+    *********************************************************
+    @description    : Méthode de test pour tester la classe controller qui créé un account
+    *********************************************************
+    */
+
 
      @isTest
     static void testCreate() {
@@ -46,6 +62,11 @@ private class TestCrudAccountController {
     System.assertNotEquals(null, acc, 'la soql aurait du retourner account');
 
     }
+      /*
+    *********************************************************
+    @description    : Méthode de test pour tester la classe controller qui édite un account
+    *********************************************************
+    */
 
      @isTest
     static void testEdit() {

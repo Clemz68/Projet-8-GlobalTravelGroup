@@ -8,7 +8,11 @@ private class TestCrudContractSelector {
       public Date startDate;
       public Integer contractTerm;
     }
-
+    /*
+    *********************************************************
+    @description    : Méthode de test pour tester la classe selector qui supprime un contrat
+    *********************************************************
+    */
     @isTest
     static void testDelete() {
         
@@ -20,7 +24,11 @@ private class TestCrudContractSelector {
     System.assertNotEquals(null, cont, 'la soql aurait du retourner un obj');
 
     }
-
+    /*
+    *********************************************************
+    @description    : Méthode de test pour tester la classe selector qui récupère les contrats
+    *********************************************************
+    */
      @isTest
     static void testGet() {
     
@@ -32,7 +40,11 @@ private class TestCrudContractSelector {
     System.assertNotEquals(null, cont, 'la soql aurait du retourner un obj');
 
     }
-
+    /*
+    *********************************************************
+    @description    : Méthode de test pour tester la classe selector qui créer un contrat
+    *********************************************************
+    */
      @isTest
     static void testCreate() {
     
@@ -52,7 +64,11 @@ private class TestCrudContractSelector {
     System.assertNotEquals(null, cont, 'la soql aurait du retourner un obj');
 
     }
-
+    /*
+    *********************************************************
+    @description    : Méthode de test pour tester la classe selector qui édite un contrat
+    *********************************************************
+    */
      @isTest
     static void testEdit() {
         

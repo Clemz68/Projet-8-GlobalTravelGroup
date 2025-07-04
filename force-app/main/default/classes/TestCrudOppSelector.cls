@@ -11,7 +11,11 @@ private class TestCrudOppSelector {
       public Date endDate;
       public Integer numberOfParticipants;
     }
-
+    /*
+    *********************************************************
+    @description    : Méthode de test pour tester la classe selector qui supprime une opp
+    *********************************************************
+    */
     @isTest
     static void testDelete() {
         
@@ -23,7 +27,11 @@ private class TestCrudOppSelector {
     System.assertNotEquals(null, opp, 'la soql aurait du retourner un obj');
 
     }
-
+    /*
+    *********************************************************
+    @description    : Méthode de test pour tester la classe selector qui récupère les opps
+    *********************************************************
+    */
      @isTest
     static void testGet() {
     
@@ -35,7 +43,10 @@ private class TestCrudOppSelector {
     System.assertNotEquals(null, opp, 'la soql aurait du retourner un obj');
 
     }
-
+    /*
+    *********************************************************
+    @description    : Méthode de test pour tester la classe selector qui créer une opp
+    */
      @isTest
     static void testCreate() {
     
@@ -56,7 +67,11 @@ private class TestCrudOppSelector {
     System.assertNotEquals(null, opp, 'la soql aurait du retourner un obj');
 
     }
-
+    /*
+    *********************************************************
+    @description    : Méthode de test pour tester la classe selector qui édite une opp
+    *********************************************************
+    */
      @isTest
     static void testEdit() {
         

@@ -2,6 +2,12 @@
 @isTest
 private class TestCheckDateTripTrigger {
 
+    /*
+    *********************************************************
+    @description    : Méthode de test pour tester le trigger qui bloque la création du trip si les dates sont incohérentes
+    *********************************************************
+    */
+
     @isTest
     static void myUnitTest() {
         
@@ -10,7 +16,6 @@ private class TestCheckDateTripTrigger {
             End_Date__c = Date.today()
         );
 
-        // Bloc try/catch pour intercepter l’erreur
         Test.startTest();
         try {
             insert invalidTrip;

@@ -7,7 +7,11 @@ private class TestCrudAccountSelector {
       public String industry;
       public String name;
     }
-
+    /*
+    *********************************************************
+    @description    : Méthode de test pour tester la classe selector qui supprime un account
+    *********************************************************
+    */
     @isTest
     static void testDelete() {
         
@@ -19,7 +23,11 @@ private class TestCrudAccountSelector {
     System.assertNotEquals(null, acc, 'la soql aurait du retourner un account');
 
     }
-
+     /*
+    *********************************************************
+    @description    : Méthode de test pour tester la classe selector qui récupère les accounts
+    *********************************************************
+    */
      @isTest
     static void testGet() {
         
@@ -29,7 +37,11 @@ private class TestCrudAccountSelector {
     System.assertNotEquals(null, acc, 'la soql aurait du retourner un account');
 
     }
-
+     /*
+    *********************************************************
+    @description    : Méthode de test pour tester la classe selector qui créér un account
+    *********************************************************
+    */
      @isTest
     static void testCreate() {
         
@@ -46,7 +58,11 @@ private class TestCrudAccountSelector {
     System.assertNotEquals(null, acc, 'la soql aurait du retourner account');
 
     }
-
+     /*
+    *********************************************************
+    @description    : Méthode de test pour tester la classe selector qui édite un account
+    *********************************************************
+    */
      @isTest
     static void testEdit() {
         
