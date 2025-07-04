@@ -157,11 +157,11 @@
         <lightning-modal-header label="Create New Account"></lightning-modal-header>
 
         <lightning-modal-body>
-            <lightning-input type="text" label="Name" name="name" onchange={handleChange} required></lightning-input>
-            <lightning-input type="email" label="Email" name="email" onchange={handleChange}></lightning-input>
-            <lightning-input type="phone" label="Phone" name="phone" onchange={handleChange}></lightning-input>
-            <lightning-input type="text" label="Type" name="type" onchange={handleChange}></lightning-input>
-            <lightning-input type="text" label="Industry" name="industry" onchange={handleChange}></lightning-input>
+            <lightning-input type="text" label="Account Name" name="name" onchange={handleChange} required></lightning-input>
+            <lightning-combobox type ="text" label="Currency" name="currencyIsoCode" options={currencyOptions} onchange={handleChange} required> </lightning-combobox>
+            <lightning-combobox type ="text" label="Industry" name="industry" options={industryOptions} onchange={handleChange} required> </lightning-combobox>
+            <lightning-input type="number" label="Phone" name="phone" onchange={handleChange}></lightning-input>
+        
 
             <div class="slds-m-top_medium">
                 <lightning-button variant="brand" label="Create Account" onclick={handleSaveClick}></lightning-button>
@@ -175,11 +175,11 @@
         <lightning-modal-header label="Update Account"></lightning-modal-header>
 
         <lightning-modal-body>
-            <lightning-input type="text" label="Name" name="name" value={nameEdit} onchange={handleChange} required></lightning-input>
-            <lightning-input type="email" label="Email" name="email" value={emailEdit} onchange={handleChange}></lightning-input>
-            <lightning-input type="phone" label="Phone" name="phone" value={phoneEdit} onchange={handleChange}></lightning-input>
-            <lightning-input type="text" label="Type" name="type" value={typeEdit} onchange={handleChange}></lightning-input>
-            <lightning-input type="text" label="Industry" name="industry" value={industryEdit} onchange={handleChange}></lightning-input>
+            <lightning-input type="text" label="Account Name" name="name" value={nameEdit} onchange={handleChange} required></lightning-input>
+            <lightning-combobox type ="text" label="Currency" name="currencyIsoCode" options={currencyOptions} value={currencyIsoCodeEdit}  onchange={handleChange} required> </lightning-combobox>
+            <lightning-combobox type ="text" label="Industry" name="industry" options={industryOptions} value={industryEdit} onchange={handleChange} required> </lightning-combobox>
+            <lightning-input type="number" label="Phone" name="phone" value={phoneEdit} onchange={handleChange}></lightning-input>
+        
 
             <div class="slds-m-top_medium">
                 <lightning-button variant="brand" label="Update Account" onclick={handleSaveClick}></lightning-button>
