@@ -74,7 +74,6 @@ public with sharing class CrudContractSelector {
             return null;
 
         } catch (Exception e) {
-          System.debug('Erreur CRUD: ' + e.getMessage());
             throw new AuraHandledException(e.getMessage());
         }
     }
@@ -88,7 +87,6 @@ public with sharing class CrudContractSelector {
   public static List <Contract> crudContSelectorGet (Id accountId) {
 
       List <Contract> conts = [SELECT Id, AccountId, ContractNumber, CurrencyIsoCode, Status, StartDate, ContractTerm FROM Contract WHERE AccountId = :accountId];
-
       return conts;
     }
 }

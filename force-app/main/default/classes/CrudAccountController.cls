@@ -2,30 +2,30 @@ public with sharing class CrudAccountController {
   
     /*
     *********************************************************
-    @description    : Méthode pour appeler le selector récupérer les comptes.
-    @return         : Liste de comptes
+    @description    : Méthode pour appeler le selector et récupérer les comptes.
+    @return         : List <Account>
     *********************************************************
     */
 
     @AuraEnabled (cacheable=true)
 
-    public static List <Account> crudAccControllerGet (){
+        public static List <Account> crudAccControllerGet (){
 
-    List <Account> accGet= new List<Account>();
+        List <Account> accGet= new List<Account>();
 
-    try { 
+        try { 
 
-    return crudAccountSelector.crudAccSelectorGet ();
-     
-    } catch (Exception e) {
-        throw new AuraHandledException(e.getMessage());
-    }
+        return crudAccountSelector.crudAccSelectorGet ();
+        
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
     }
 
     /*
     *********************************************************
-    @description    : Méthode pour apeler le selector et supprimer le compte.
-    @param          : Le compte à suppr
+    @description    : Appele le selector et supprimer le compte.
+    @param          : Account à supprimer
     *********************************************************
     */
     @AuraEnabled
@@ -35,7 +35,7 @@ public with sharing class CrudAccountController {
 
         try {
 
-        acc = crudAccountSelector.crudAccSelectorDelete(accDelete);
+            acc = crudAccountSelector.crudAccSelectorDelete(accDelete);
 
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
@@ -47,9 +47,9 @@ public with sharing class CrudAccountController {
     }
     /*
     *********************************************************
-    @description    : Méthode pour apeler le selector et créer un compte.
-    @param          : objet js sous format JSON
-    @return         : Le compte inséré 
+    @description    : Apelle le selector et créer un compte.
+    @param          : objet JavaScript sous format JSON
+    @return         : Account inséré 
     *********************************************************
     */
     @AuraEnabled
@@ -76,9 +76,9 @@ public with sharing class CrudAccountController {
     }
      /*
     *********************************************************
-    @description    : Méthode pour apeler le selector et éditer un compte.
-    @param          : objet js sous format JSON
-    @return         : Le compte édité
+    @description    : Appele le selector et met à jour l'Account.
+    @param          : objet JavaScript sous format JSON
+    @return         : Account mis à jour
     *********************************************************
     */
 

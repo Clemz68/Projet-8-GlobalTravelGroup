@@ -18,8 +18,6 @@ export default class Modal extends LightningModal {
 
     statusContractOptions = [
 
-        { label: 'In Approval Process', value: 'In Approval Process' },
-        { label: 'Activated', value: 'Activated' },
         { label: 'Draft', value: 'Draft' },
 
     ];
@@ -59,6 +57,7 @@ export default class Modal extends LightningModal {
     @api modalUpdateContract;
     @api modalCreateAccountApex;
     @api modalUpdateAccount;
+    @api modalConfirmSuppr;
 
     nameEdit;
     industryEdit; 
@@ -250,6 +249,10 @@ export default class Modal extends LightningModal {
             let objectString = JSON.stringify(this.fieldsValues);
             this.close(objectString);
         }
+
+        if (this.modalConfirmSuppr){
+            this.close('ok');
+        }
     }
         /**
          * @description Méthode appelée lors de l'annulation explicite (ex: clic sur bouton Annuler).
@@ -262,6 +265,6 @@ export default class Modal extends LightningModal {
          * @description  Méthode appelée pour fermer la modale avec un statut "canceled".
          */
     handleCloseClick() {
-        this.close('canceled');
+        this.close(null);
     }
 }

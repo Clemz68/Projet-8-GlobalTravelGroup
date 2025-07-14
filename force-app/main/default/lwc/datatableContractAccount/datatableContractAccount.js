@@ -38,6 +38,9 @@ export default class DatatableConctractAccount extends NavigationMixin(Lightning
     data = [];
     columns = columns;
     draftValues = [];
+    isLoading = true;
+    nodata = false;
+    datatableVisible = false;
     wiredConts;
 
     /**
@@ -47,14 +50,19 @@ export default class DatatableConctractAccount extends NavigationMixin(Lightning
     @wire(crudContControllerGet, { accountId: '$recordId' })
     wiredCrudContControllerGet(result) {
         this.wiredConts = result;
-        const { data, error } = result;
-        if (data) {
+            const { data, error } = result;
+        if (data != undefined && data !== null) {
+            if (data.length > 0) {
+            this.datatableVisible = true;
             this.data = data;
             this.contItem = data.map((record) => {
                 return { ...record, }
             })
+            }else{
+                this.nodata = true; 
+            }
         }
-        else if (error) {
+        if (error) {
             this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Error while fetching Contract',
@@ -63,6 +71,7 @@ export default class DatatableConctractAccount extends NavigationMixin(Lightning
                 })
             );
         }
+        this.isLoading = false;
     }
 
     /**
@@ -132,31 +141,41 @@ export default class DatatableConctractAccount extends NavigationMixin(Lightning
      * @param {Object} row - L’objet à supprimer.
      */
     async handleDelete(row) {
-        try {
 
-            const rowId = row.Id;
-            await crudContControllerDelete({ contDelete: rowId });
+        const result = await modal.open({
+            size: 'small',
+            description: 'Confirmation suppression',
+            content: 'Passed into content api',
+            modalConfirmSuppr: true
+        });
 
-            this.dispatchEvent(
-                new ShowToastEvent({
-                    title: 'Succès',
-                    message: 'Ce contrat a été supprimé avec succès.',
-                    variant: 'success'
-                })
-            );
-            await refreshApex(this.wiredConts);
+        if (result) {
+            try {
 
-        } catch (error) {
-            this.dispatchEvent(
-                new ShowToastEvent({
-                    title: 'Erreur',
-                    message: error.body?.message || 'La suppression a échoué.',
-                    variant: 'error'
-                })
-            );
-            console.error(error);
-        }
-    }
+                const rowId = row.Id;
+                await crudContControllerDelete({ contDelete: rowId });
+
+                this.dispatchEvent(
+                    new ShowToastEvent({
+                        title: 'Succès',
+                        message: 'Ce contrat a été supprimé avec succès.',
+                        variant: 'success'
+                    })
+                );
+                await refreshApex(this.wiredConts);
+
+            } catch (error) {
+                this.dispatchEvent(
+                    new ShowToastEvent({
+                        title: 'Erreur',
+                        message: error.body?.message || 'La suppression a échoué.',
+                        variant: 'error'
+                    })
+                );
+                console.error(error);
+            }
+         }
+    }       
     /**
      * @description Navigue vers la page standard de l'objet sélectionné.
      * @param {Object} row - L’objet à afficher.

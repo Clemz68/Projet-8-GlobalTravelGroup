@@ -47,6 +47,9 @@ export default class DatatableConctractAccount extends NavigationMixin(Lightning
     columns = columns;
     draftValues = [];
     wiredAccs;
+    isLoading = true;
+    nodata = false;
+    datatableVisible = false;
 
     /**
      * @description Récupère la liste des comptes via Apex et la stocke dans this.data et this.accItem.
@@ -55,11 +58,18 @@ export default class DatatableConctractAccount extends NavigationMixin(Lightning
     @wire(crudAccControllerGet)
     wiredCrudAccControllerGet(result) {
         this.wiredAccs = result;
-        const { data, error } = result;
-        if (data) {
+             const { data, error } = result;
+        if (data != undefined && data !== null) {
+            if (data.length > 0) {
             this.data = data;
+            this.datatableVisible = true;
             this.accItem = data.map(record => ({ ...record }));
-        } else if (error) {
+            }else{
+            this.nodata = true;
+            }
+        }
+        
+        if (error) {
             this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Error while fetching Account',
@@ -68,6 +78,7 @@ export default class DatatableConctractAccount extends NavigationMixin(Lightning
                 })
             );
         }
+        this.isLoading = false;
     }
 
     /**
@@ -134,7 +145,16 @@ export default class DatatableConctractAccount extends NavigationMixin(Lightning
      * @param {Object} row - L’objet Account à supprimer.
      */
     async handleDelete(row) {
-        try {
+
+         const result = await modal.open({
+            size: 'small',
+            description: 'Confirmation suppression',
+            content: 'Passed into content api',
+            modalConfirmSuppr: true
+        });
+
+         if (result) {
+                   try {
             const rowId = row.Id;
             await crudAccControllerDelete({ accDelete: rowId });
 
@@ -152,12 +172,14 @@ export default class DatatableConctractAccount extends NavigationMixin(Lightning
             this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Erreur',
-                    message: error.body?.message || 'La suppression a échoué.',
+                    message: error.body?.message || 'La suppression a échouée.',
                     variant: 'error',
                 })
             );
         }
+        }
     }
+    
 
     /**
      * @description Navigue vers la page standard du compte sélectionné.

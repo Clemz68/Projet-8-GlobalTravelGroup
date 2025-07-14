@@ -48,7 +48,10 @@ export default class DatatableTripAccount extends NavigationMixin(LightningEleme
     columns = columns;
     draftValues = [];
     wiredTrips; 
+    isLoading = true;
+    nodata = false;
     opportunityOptions = [];
+    datatableVisible = false;
 
     /**
      * @description Récupère la liste des Trip via Apex et la stocke dans this.data et this.tripItem.
@@ -57,8 +60,10 @@ export default class DatatableTripAccount extends NavigationMixin(LightningEleme
     @wire(crudTrpControllerGet, { accountId : '$recordId' })
     wiredCrudTrpControllerGet(result) {
         this.wiredTrips = result;
-        const { data, error } = result;
-        if (data) {
+             const { data, error } = result;
+        if (data != undefined && data !== null) {
+            if (data.length >0) {
+            this.datatableVisible = true;
             this.data = data; 
             this.tripItem = data.map((record) => {
                 let statusClass = this.styleCssStatus(record); 
@@ -70,8 +75,11 @@ export default class DatatableTripAccount extends NavigationMixin(LightningEleme
                     OpportunityName: record.Opportunity__r?.Name ?? '',
                 };
             });
-        } 
-        else if (error) {
+            }else{
+                this.nodata = true;
+            }
+        }
+        if (error) {
             this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Error while fetching Trips',
@@ -80,6 +88,7 @@ export default class DatatableTripAccount extends NavigationMixin(LightningEleme
                 })
             );
         }
+        this.isLoading = false;
     }
 
     /**
@@ -195,31 +204,40 @@ export default class DatatableTripAccount extends NavigationMixin(LightningEleme
      * @param {Object} row - L’objet à supprimer.
      */
     async handleDelete(row) {
-        try {
-            const rowId = row.Id;
-            await crudTrpControllerDelete({ tripDelete: rowId });
 
-            this.dispatchEvent(
-                new ShowToastEvent({
-                    title: 'Succès',
-                    message: 'Le voyage a été supprimé avec succès.',
-                    variant: 'success'
-                })
-            );
-            await refreshApex(this.wiredTrips); 
+          const result = await modal.open({
+            size: 'small',
+            description: 'Confirmation suppression',
+            content: 'Passed into content api',
+            modalConfirmSuppr: true
+        });
 
-        } catch (error) {
-            this.dispatchEvent(
-                new ShowToastEvent({
-                    title: 'Erreur',
-                    message: error.body?.message || 'La suppression a échoué.',
-                    variant: 'error'
-                })
-            );
-            console.error(error);
+        if (result) {
+            try {
+                const rowId = row.Id;
+                await crudTrpControllerDelete({ tripDelete: rowId });
+
+                this.dispatchEvent(
+                    new ShowToastEvent({
+                        title: 'Succès',
+                        message: 'Le voyage a été supprimé avec succès.',
+                        variant: 'success'
+                    })
+                );
+                await refreshApex(this.wiredTrips); 
+
+            } catch (error) {
+                this.dispatchEvent(
+                    new ShowToastEvent({
+                        title: 'Erreur',
+                        message: error.body?.message || 'La suppression a échoué.',
+                        variant: 'error'
+                    })
+                );
+                console.error(error);
+            }
         }
     }
-
     /**
      * @description Navigue vers la page standard de l'objet sélectionné.
      * @param {Object} row - L’objet à afficher.
