@@ -8,7 +8,6 @@ public with sharing class CheckDateTripBatchatableSchedule implements Database.B
      * @return QueryLocator pour paginer les résultats
      */
     public Database.QueryLocator start(Database.BatchableContext bc) {
-        // Requête SOQL récupérant les champs nécessaires pour la logique métier
         String query = 'SELECT Id, Start_Date__c, End_Date__c, Number_of_Participants__c, Status__c FROM Trip__c';
         return Database.getQueryLocator(query);
     }

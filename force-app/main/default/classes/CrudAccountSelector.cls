@@ -9,9 +9,9 @@ public with sharing class CrudAccountSelector {
     }
     /*
     *********************************************************
-    @description    : Méthode avec SOQL pour récupérer un compte.
-    @param          : Id du compte
-    @return         : Le compte
+    @description    : Méthode avec SOQL pour récupérer le compte à supprimer.
+    @param          : Account Id
+    @return         : Account 
     *********************************************************
     */
     public static Account crudAccSelectorDelete (Id accDelete) {
@@ -21,9 +21,9 @@ public with sharing class CrudAccountSelector {
     }
     /*
     *********************************************************
-    @description    : Méthode pour créer un compte.
-    @param          : objet js sous format JSON
-    @return         : objet compte sans Id
+    @description    : Méthode pour créer un compte
+    @param          : objet JavaScript sous format JSON
+    @return         : objet JavaScript
     *********************************************************
     */
     public static Account crudAccSelectorCreate (String accJSON) {
@@ -49,8 +49,8 @@ public with sharing class CrudAccountSelector {
     /*
     *********************************************************
     @description    : Méthode pour éditer un compte.
-    @param          : objet js sous format JSON
-    @return         : objet compte complet avec Id existant
+    @param          : objet JavaScript sous format JSON
+    @return         : objet JavaScript
     *********************************************************
     */
     public static Account crudAccSelectorEdit (String accJSON) {
@@ -80,13 +80,12 @@ public with sharing class CrudAccountSelector {
     /*
     *********************************************************
     @description    : Méthode avec SOQL pour récupérer les comptes.
-    @return         : Liste de comptes
+    @return         : List <Account>
     *********************************************************
     */
     public static List <Account> crudAccSelectorGet () {
 
       List <Account> accounts = [SELECT Id, Name, Industry, Phone, CurrencyIsoCode FROM Account];
-        System.debug('les accounts récupérés' + accounts);
       return accounts;
     }
 }

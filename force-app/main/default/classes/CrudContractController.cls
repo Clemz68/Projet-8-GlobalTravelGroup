@@ -10,13 +10,13 @@ public with sharing class CrudContractController {
 
     public static List <Contract> crudContControllerGet (Id accountId){
 
-    try {
-        
-    return crudContractSelector.crudContSelectorGet (accountId);
-        
-    } catch (Exception e) {
-        throw new AuraHandledException(e.getMessage());
-    }
+        try {
+            
+        return crudContractSelector.crudContSelectorGet (accountId);
+            
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
     }
     /*
     *********************************************************

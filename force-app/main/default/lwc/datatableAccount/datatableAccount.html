@@ -9,18 +9,33 @@
             onclick={handleAddApex}>
         </lightning-button>
 
-        <div>
-            <!-- Tableau des comptes affichés avec possibilité d’édition inline -->
-            <lightning-datatable
-                data={accItem}
-                columns={columns}
-                key-field="Id"
-                draft-values={draftValues}
-                onsave={handleSave}
-                onrowaction={handleRowAction}
-                hide-checkbox-column="true">
-            </lightning-datatable>
+        <div if:true={isLoading} style="height: 200px; position:relative">
+             <lightning-spinner variant="base" size="medium"></lightning-spinner>
         </div>
+
+        <template if:true={nodata}>
+          <lightning-tile
+            class="slds-m-around_small slds-box slds-p-around_medium lgc-bg slds-theme_info slds-theme_alert-texture slds-text-bold">
+            <p>
+              Aucun enregistrement trouvé
+            </p>
+          </lightning-tile>
+        </template>
+
+        <template if:true={datatableVisible}>
+            <div>
+                <!-- Tableau des comptes affichés avec possibilité d’édition inline -->
+                <lightning-datatable
+                    data={accItem}
+                    columns={columns}
+                    key-field="Id"
+                    draft-values={draftValues}
+                    onsave={handleSave}
+                    onrowaction={handleRowAction}
+                    hide-checkbox-column="true">
+                </lightning-datatable>
+            </div>
+        </template>
 
     </lightning-card>
 </template>

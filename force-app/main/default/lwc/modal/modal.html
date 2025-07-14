@@ -1,4 +1,17 @@
 <template>
+
+    <template if:true={modalConfirmSuppr}>
+        <lightning-modal-header label="Confirmation de la suppression"></lightning-modal-header>
+        <lightning-modal-body>
+
+                <div class="slds-m-top_medium">
+                <lightning-button variant="brand" label="Confirmer" onclick={handleSaveClick}></lightning-button>
+                <lightning-button variant="neutral" label="Annuler" onclick={handleCloseClick} class="slds-m-left_small"></lightning-button>
+            </div>
+
+        </lightning-modal-body>
+    </template>
+
     <!-- Modal pour créer un nouveau Trip avec formulaire standard Salesforce -->
     <template if:true={modalCreateTrip}>
         <lightning-modal-header label="Create New Trip"></lightning-modal-header>

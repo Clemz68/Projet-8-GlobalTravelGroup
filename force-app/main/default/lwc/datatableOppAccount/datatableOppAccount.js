@@ -65,7 +65,10 @@ export default class DatatableOppAccount extends NavigationMixin(LightningElemen
     data = [];
     columns = columns;
     draftValues = [];
-    wiredOpps; 
+    isLoading = true;
+    nodata = false;
+    wiredOpps;
+    datatableVisible = false;
 
     /**
      * @description Récupère la liste des Opp via Apex et la stocke dans this.data et this.oppItem.
@@ -74,14 +77,20 @@ export default class DatatableOppAccount extends NavigationMixin(LightningElemen
     @wire(crudOppControllerGet, {accountId : '$recordId'})
     wiredCrudOppControllerGet(result) {
         this.wiredOpps = result;
-        const { data, error } = result;
-        if (data) {
+            const { data, error } = result;
+        if (data != undefined && data !== null) {
+            if (data.length > 0) {
+            this.datatableVisible = true;
             this.data = data; 
             this.oppItem = data.map((record) => {
                 return {...record};
             });
+            }else{
+                this.nodata = true;
+            }
         }
-        else if (error) {
+        
+        if (error) {
             this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Error while fetching Opp',
@@ -90,6 +99,7 @@ export default class DatatableOppAccount extends NavigationMixin(LightningElemen
                 })
             );
         }
+        this.isLoading = false;
     }
   
     /**
@@ -159,30 +169,41 @@ export default class DatatableOppAccount extends NavigationMixin(LightningElemen
      * @param {Object} row - L’objet à supprimer.
      */
     async handleDelete(row) {
-        try {
-            const rowId = row.Id;
-            await crudOppControllerDelete({ oppDelete: rowId });
+       
+          const result = await modal.open({
+            size: 'small',
+            description: 'Confirmation suppression',
+            content: 'Passed into content api',
+            modalConfirmSuppr: true
+        });
 
-            this.dispatchEvent(
-                new ShowToastEvent({
-                    title: 'Succès',
-                    message: 'Cette opportunité a été supprimé avec succès.',
-                    variant: 'success'
-                })
-            );
-            await refreshApex(this.wiredOpps); 
+        if (result) {
+       
+            try {
+                const rowId = row.Id;
+                await crudOppControllerDelete({ oppDelete: rowId });
 
-        } catch (error) {
-            this.dispatchEvent(
-                new ShowToastEvent({
-                    title: 'Erreur',
-                    message: error.body?.message || 'La suppression a échoué.',
-                    variant: 'error'
-                })
-            );
-            console.error(error);
+                this.dispatchEvent(
+                    new ShowToastEvent({
+                        title: 'Succès',
+                        message: 'Cette opportunité a été supprimé avec succès.',
+                        variant: 'success'
+                    })
+                );
+                await refreshApex(this.wiredOpps); 
+
+            } catch (error) {
+                this.dispatchEvent(
+                    new ShowToastEvent({
+                        title: 'Erreur',
+                        message: error.body?.message || 'La suppression a échoué.',
+                        variant: 'error'
+                    })
+                );
+                console.error(error);
+            }
         }
-    }  
+    }   
 
     /**
      * @description Navigue vers la page standard de l'objet sélectionné.
