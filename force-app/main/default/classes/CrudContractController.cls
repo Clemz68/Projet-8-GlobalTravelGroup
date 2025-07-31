@@ -30,14 +30,8 @@ public with sharing class CrudContractController {
 
         Contract cont = new Contract();
 
-        try {
-
         cont = crudContractSelector.crudContSelectorDelete(contDelete);
     
-        } catch (Exception e) {
-            throw new AuraHandledException(e.getMessage());
-        }
-
         if (cont!= null){
 
             delete cont;
@@ -56,13 +50,8 @@ public with sharing class CrudContractController {
         
         Contract contRec = new Contract();
         
-        try {
+        contRec = crudContractSelector.crudContSelectorCreate (contJSON, accountId);
 
-           contRec = crudContractSelector.crudContSelectorCreate (contJSON, accountId);
-
-        } catch (Exception e) {
-            throw new AuraHandledException(e.getMessage());
-        }
         if (contRec != null){
             insert contRec;
             return contRec;

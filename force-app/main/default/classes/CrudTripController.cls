@@ -11,14 +11,8 @@ public with sharing class CrudTripController {
 
         Trip__c trp = new Trip__c();
 
-        try {
-
         trp = crudTripSelector.crudTrpSelectorDelete(tripDelete);
     
-        } catch (Exception e) {
-            throw new AuraHandledException(e.getMessage());
-        }
-
         if (trp!= null){
 
             delete trp;
@@ -34,14 +28,8 @@ public with sharing class CrudTripController {
     public static Trip__c crudTrpControllerCreate (String tripJSON, Id accountId) {
         
         Trip__c tripRec = new Trip__c();
-        
-        try {
 
         tripRec = crudTripSelector.crudTrpSelectorCreate (tripJSON, accountId);
-
-        } catch (Exception e) {
-            throw new AuraHandledException(e.getMessage());
-        }
 
         if (tripRec!= null){
             insert tripRec;

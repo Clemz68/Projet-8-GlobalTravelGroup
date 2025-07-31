@@ -11,8 +11,6 @@ public with sharing class CrudAccountController {
 
         public static List <Account> crudAccControllerGet (){
 
-        List <Account> accGet= new List<Account>();
-
         try { 
 
         return crudAccountSelector.crudAccSelectorGet ();
@@ -33,13 +31,7 @@ public with sharing class CrudAccountController {
 
         Account acc = new Account();
 
-        try {
-
-            acc = crudAccountSelector.crudAccSelectorDelete(accDelete);
-
-        } catch (Exception e) {
-            throw new AuraHandledException(e.getMessage());
-        }
+        acc = crudAccountSelector.crudAccSelectorDelete(accDelete);
 
         if (acc!= null){
         delete acc;
@@ -57,13 +49,11 @@ public with sharing class CrudAccountController {
 
         Account accRec = new Account();
 
-        try {
+        
 
-            accRec = crudAccountSelector.crudAccSelectorCreate (accJSON);
+        accRec = crudAccountSelector.crudAccSelectorCreate (accJSON);
 
-        } catch (Exception e) {
-            throw new AuraHandledException(e.getMessage());
-        }
+        
 
         if (accRec!=null){
             insert accRec;

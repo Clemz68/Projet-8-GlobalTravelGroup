@@ -30,13 +30,7 @@ public with sharing class CrudOppController {
 
         Opportunity opp = new Opportunity();
 
-        try {
-
         opp = crudOppSelector.crudOppSelectorDelete(oppDelete);
-    
-        } catch (Exception e) {
-            throw new AuraHandledException(e.getMessage());
-        }
 
         if (opp!= null){
             delete opp;
@@ -55,13 +49,7 @@ public with sharing class CrudOppController {
         
         Opportunity oppRec = new Opportunity();
         
-        try {
-
-            oppRec = crudOppSelector.crudOppSelectorCreate (oppJSON, accountId);
-
-        } catch (Exception e) {
-            throw new AuraHandledException(e.getMessage());
-        }
+         oppRec = crudOppSelector.crudOppSelectorCreate (oppJSON, accountId);
 
          if (oppRec != null){
 
