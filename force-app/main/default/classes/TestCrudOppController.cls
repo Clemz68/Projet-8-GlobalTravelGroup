@@ -2,6 +2,7 @@
 private class TestCrudOppController {
 
    public class Wrapper {
+      public Id Id;
       public String name;
       public String stage;
       public Date closeDate;
@@ -78,15 +79,20 @@ private class TestCrudOppController {
     static void testEdit() {
         
     Opportunity testObject = FactoryClass.createOppTestData();
-    testObject.StageName = 'Qualification';
-    String objJSON = JSON.serialize(testObject);
+      Id oppId = testObject.Id; 
 
+    Wrapper wrapper = new Wrapper();
+    wrapper.id = oppId;
+    wrapper.stage = 'Qualification';
+    wrapper.closeDate = Date.newInstance(1990, 11, 21);
+    wrapper.amount = 42;
+    wrapper.destination = 'france';
+
+      String objJSON = JSON.serialize(wrapper);
 
     Opportunity opp = CrudOppController.crudOppControllerEdit(objJSON);   
 
     System.assertNotEquals(null, opp, 'la soql aurait du retourner un obj');
-
-
 
     }
 }

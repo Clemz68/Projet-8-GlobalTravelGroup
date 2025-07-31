@@ -55,7 +55,7 @@ public class FactoryClass {
 
       Opportunity testOpp = new Opportunity(
             Name = 'Test Opportunity for Factory Usage',
-            StageName = 'Qualification',
+            StageName = 'Prospecting',
             CloseDate = Date.today(),
             Amount = 47,
             Destination__c = 'suisse',

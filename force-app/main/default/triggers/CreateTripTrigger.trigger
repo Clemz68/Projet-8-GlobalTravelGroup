@@ -2,7 +2,8 @@ trigger CreateTripTrigger on Opportunity (after update) {
 
 List <Trip__c> tripsToCreate = new List <Trip__c> (); 
 
-List <Opportunity> oppToGet = [SELECT Destination__c, Start_Date__c , End_Date__c , Number_of_Participants__c, StageName, Amount,AccountId, Id FROM Opportunity WHERE Id IN: trigger.new];
+List <Opportunity> oppToGet = [SELECT Destination__c, Start_Date__c , End_Date__c ,
+Number_of_Participants__c, StageName, Amount,AccountId, Id FROM Opportunity WHERE Id IN: trigger.new];
 
 for (Opportunity opp: oppToGet) {
 
