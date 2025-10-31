@@ -8,7 +8,7 @@ public with sharing class CheckDateTripBatchatableSchedule implements Database.B
      * @return QueryLocator pour paginer les résultats
      */
     public Database.QueryLocator start(Database.BatchableContext bc) {
-        String query = 'SELECT Id, Start_Date__c, End_Date__c, Number_of_Participants__c, Status__c FROM Trip__c';
+        String query = 'SELECT Id, FROM Account WHERE Id IN (SELECT AccountId FROM Order WHERE StatusCode = "Activated")';
         return Database.getQueryLocator(query);
     }
 
@@ -63,10 +63,10 @@ public with sharing class CheckDateTripBatchatableSchedule implements Database.B
 
     /**
      * Méthode execute du Scheduler - Lance l'exécution du batch via un scheduler
+     * Elle instancie la classe batch et exécute le batch avec une taille de lot de 200
      * @param sc Contexte du scheduler
      */
     public void execute(SchedulableContext sc) {
-        // Instancie la classe batch et exécute le batch avec une taille de lot de 200
         CheckDateTripBatchatableSchedule batch = new CheckDateTripBatchatableSchedule();
         Database.executeBatch(batch, 200);
     }
